@@ -5,15 +5,21 @@
 from w1thermsensor import W1ThermSensor
 import requests
 import time
+import memcache
+
+mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
 sensors = {'000004c3902b': 'cabine', '0216006262ff': 'outdoor', '0000055d77fe': 'jacuzzi', '0216005cc3ff': 'primary', '0216007c88ff': 'secondary_in', '0216007d8dff': 'secondary_out'}
 
 while True:
     w1 = ''
+    temperatures = {}
 
     for sensor in W1ThermSensor.get_available_sensors():
-        w1 += "temperature,sensor=%s,location=%s value=%.2f\n" % (sensor.id, sensors[sensor.id], sensor.get_temperature())
+        temperature = sensor.get_temperature()
+        w1 += "temperature,sensor=%s,location=%s value=%.2f\n" % (sensor.id, sensors[sensor.id], temperature)
+        temperatures[sensors[sensor.id]] = temperature
 
     requests.post('http://localhost:8086/write?db=jacuzzi', data = w1[:-2])
-    print(w1)
+    mc.set('temperatures', temperatures)
     time.sleep(60)

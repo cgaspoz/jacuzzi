@@ -14,7 +14,7 @@ mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 while True:
     temperatures = mc.get('temperatures')
     try:
-        jacuzzi = '%.1f' % temperatures['jacuzzi']
+        jacuzzi = temperatures['jacuzzi']
     except:
         jacuzzi = 99.9
 
