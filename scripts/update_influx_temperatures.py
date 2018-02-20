@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# Uses withermsensor from https://github.com/timofurrer/w1thermsensor
+
 from w1thermsensor import W1ThermSensor
 import requests
 import time
