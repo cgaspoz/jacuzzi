@@ -8,10 +8,22 @@ mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
 
 while True:
+    values = ""
+
     countable = mc.get('countable')
-
     if type(countable) == type(dict()):
-        c = "water,sensor=liters value=%s\nwater,sensor=joules_in value=%s\nwater,sensor=joules_out value=%s" % (countable['totLitres'], countable['totJin'], countable['totJout'])
+        values = "water,sensor=liters value=%s\nwater,sensor=joules_in value=%s\nwater,sensor=joules_out value=%s" % (countable['totLitres'], countable['totJin'], countable['totJout'])
 
-    requests.post('http://localhost:8086/write?db=jacuzzi', data = c)
+    filtration = mc.get('filtration')
+    if type(filtration) == type(dict()):
+        if values != "":
+            values += "\n"
+        if filtration['running'] == True:
+            value = 1
+        else:
+            value = 0
+        values += "water,sensor=filtration value=%s" % value
+
+    requests.post('http://localhost:8086/write?db=jacuzzi', data = values)
+
     time.sleep(60)
