@@ -24,6 +24,18 @@ while True:
             value = 0
         values += "water,sensor=filtration value=%s" % value
 
-    requests.post('http://localhost:8086/write?db=jacuzzi', data = values)
+    jacuzzi = mc.get('jacuzzi')
+    # {'cover': OPEN/CLOSED, 'lights': ON/OFF}
+    if type(jacuzzi) == type(dict()):
+        if values != "":
+            values += "\n"
+        if jacuzzi['cover'] == "OPEN":
+            jacuzzi_int = 1
+        else:
+            jacuzzi_int = 0
 
+        values += "ambient,sensor=cover value=\"%s\"\nambient,sensor=lights value=\"%s\"\nambient,sensor=cover_int value=%s" % (jacuzzi['cover'], jacuzzi['lights'], jacuzzi_int)
+
+    requests.post('http://localhost:8086/write?db=jacuzzi', data = values)
+    print(values)
     time.sleep(60)

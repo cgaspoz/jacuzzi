@@ -62,7 +62,7 @@ while True :
 
     if c == 1 and oc == 0:
         dt = t - ot
-        print("Rising edge, dt=", dt, "temp aller=", jtemp, "temp retour=", rtemp, "dif=", dtemp)
+        #print("Rising edge, dt=", dt, "temp aller=", jtemp, "temp retour=", rtemp, "dif=", dtemp)
         if l > 0 and dt > 0:
             lth = 3600000/dt
             ltm =   60000/dt 
@@ -101,7 +101,7 @@ while True :
         l += 1
 
     elif c == 0 and oc == 1:
-        print("Falling edge")
+        #print("Falling edge")
         oc = 0
 
     time.sleep(0.1)
