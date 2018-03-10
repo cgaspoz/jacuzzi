@@ -20,6 +20,7 @@ while True:
         w1 += "temperature,sensor=%s,location=%s value=%.2f\n" % (sensor.id, sensors[sensor.id], temperature)
         temperatures[sensors[sensor.id]] = temperature
 
-    requests.post('http://localhost:8086/write?db=jacuzzi', data = w1[:-2])
     mc.set('temperatures', temperatures)
+    requests.post('http://localhost:8086/write?db=jacuzzi', data = w1[:-2])
+    requests.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = w1[:-2])
     time.sleep(60)
