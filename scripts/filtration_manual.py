@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# Toggle manual filtration
 
 import memcache
 import datetime
