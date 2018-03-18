@@ -22,5 +22,5 @@ while True:
 
     mc.set('temperatures', temperatures)
     requests.post('http://localhost:8086/write?db=jacuzzi', data = w1[:-2])
-    requests.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = w1[:-2])
+    requests.post('https://62.220.129.171:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = w1[:-2])
     time.sleep(60)

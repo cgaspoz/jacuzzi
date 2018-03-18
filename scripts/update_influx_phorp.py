@@ -90,5 +90,5 @@ while True:
     mc.set('water', water)
     influx_water = "water,sensor=pH value=%s\nwater,sensor=ORP value=%s" % (water['pH'], water['ORP'])
     requests.post('http://localhost:8086/write?db=jacuzzi', data = influx_water)
-    requests.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = influx_water)
+    requests.post('https://62.220.129.171:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = influx_water)
     print influx_water

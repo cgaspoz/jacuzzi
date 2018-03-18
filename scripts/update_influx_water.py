@@ -37,6 +37,6 @@ while True:
         values += "ambient,sensor=cover value=\"%s\"\nambient,sensor=lights value=\"%s\"\nambient,sensor=cover_int value=%s" % (jacuzzi['cover'], jacuzzi['lights'], jacuzzi_int)
 
     requests.post('http://localhost:8086/write?db=jacuzzi', data = values)
-    requests.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = values)
+    requests.post('https://62.220.129.171:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = values)
     print(values)
     time.sleep(60)
