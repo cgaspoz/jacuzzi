@@ -15,11 +15,11 @@ GPIO.setup(COVER, GPIO.IN)
 GPIO.setup(JACUZZI, GPIO.OUT)
 GPIO.output(JACUZZI, GPIO.HIGH)
 
-def cover_state(cover_open):
-    if cover_open:
-        return "OPEN"
-    else:
+def cover_state(cover_closed):
+    if cover_closed:
         return "CLOSED"
+    else:
+        return "OPEN"
 
 def light_state(jacuzzi_off):
     if jacuzzi_off:
@@ -28,15 +28,14 @@ def light_state(jacuzzi_off):
         return "ON"
 
 while True :
-    cover_open = GPIO.input(COVER)
+    cover_closed = GPIO.input(COVER)
     jacuzzi_off = GPIO.input(JACUZZI)
 
-    if cover_open and jacuzzi_off:
+    if not cover_closed and jacuzzi_off:
        GPIO.output(JACUZZI, GPIO.LOW)
-    elif not cover_open and not jacuzzi_off:
+    elif cover_closed and not jacuzzi_off:
        GPIO.output(JACUZZI, GPIO.HIGH)
 
-    jacuzzi = {'cover': cover_state(cover_open), 'lights': light_state(jacuzzi_off)}
+    jacuzzi = {'cover': cover_state(cover_closed), 'lights': light_state(jacuzzi_off)}
     mc.set('jacuzzi', jacuzzi)
-
     time.sleep(0.5)
