@@ -6,6 +6,8 @@ import memcache
 
 mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
+sl = requests.Session()
+sr = requests.Session()
 
 while True:
     values = ""
@@ -36,7 +38,7 @@ while True:
 
         values += "ambient,sensor=cover value=\"%s\"\nambient,sensor=lights value=\"%s\"\nambient,sensor=cover_int value=%s" % (jacuzzi['cover'], jacuzzi['lights'], jacuzzi_int)
 
-    requests.post('http://localhost:8086/write?db=jacuzzi', data = values)
-    requests.post('https://62.220.129.171:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = values)
+    sl.post('http://localhost:8086/write?db=jacuzzi', data = values)
+    sr.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = values)
     print(values)
     time.sleep(60)
