@@ -7,6 +7,8 @@ sudo apt-get install python-memcache
 
 sudo apt-get install python3-w1thermsensor
 
+sudo apt-get install influxdb
+
 
 ## Squeezelite
 sudo apt-get install squeezelite
