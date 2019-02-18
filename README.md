@@ -2,7 +2,11 @@
 Jacuzzi controller
 
 sudo apt-get install memcached
+
 sudo apt-get install python-memcache
+
+sudo apt-get install python3-w1thermsensor
+
 
 ## Squeezelite
 sudo apt-get install squeezelite
