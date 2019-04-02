@@ -36,13 +36,18 @@ while True:
     temperatures = mc.get('temperatures')
     if type(temperatures) == type(dict()):
         primary = temperatures['primary']
-        outdoor = temperatures['outdoor']
         secondary = temperatures['secondary_in']
+    else:
+        # We have no temperatures, we define safety values (we run the filtration)
+        primary = 46
+        outdoor = 0
+
     filtration = mc.get('filtration')
     if type(filtration) == type(dict()):
         filtration_manual_run = filtration['manual_run']
         filtration_manual_start = filtration['manual_start']
     else:
+        # We define defaults
         filtration_manual_run = False
         filtration_manual_start = datetime.datetime.now()
 
@@ -75,6 +80,6 @@ while True:
 
     filtration = {'manual_start': filtration_manual_start, 'manual_run': filtration_manual_run, 'running': filtration_running()}
     mc.set('filtration', filtration)
-    print('HEAT: ', filtration_heat_run, ' | FREEZE: ', filtration_freeze_run, ' | MANUAL: ', filtration_manual_run)
+    #print('HEAT: ', filtration_heat_run, ' | FREEZE: ', filtration_freeze_run, ' | MANUAL: ', filtration_manual_run)
 
     time.sleep(10)

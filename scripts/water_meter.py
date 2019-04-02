@@ -28,6 +28,8 @@ countable = mc.get('countable')
 if type(countable) != type(dict()):
     countable = {}
 
+debug = 1
+
 oc=1
 ot=current_milli_time()-1
 
@@ -58,11 +60,12 @@ while True :
     jtemp = temperatures['secondary_in']
     rtemp = temperatures['secondary_out']
     dtemp = rtemp - jtemp   
-    # print(t, c, jtemp, rtemp, dtemp)
+    #    print(t, c, jtemp, rtemp, dtemp)
 
     if c == 1 and oc == 0:
         dt = t - ot
-        #print("Rising edge, dt=", dt, "temp aller=", jtemp, "temp retour=", rtemp, "dif=", dtemp)
+        if debug:
+            print("Rising edge, dt=", dt, "temp aller=", jtemp, "temp retour=", rtemp, "dif=", dtemp)
         if l > 0 and dt > 0:
             lth = 3600000/dt
             ltm =   60000/dt 
@@ -84,8 +87,9 @@ while True :
                     f = open("/var/jacuzzi/meter/totJout", 'w')
                     f.write(str(totJout) + "\n")
                     f.close()
-
-            # print("lth=", lth, "ltm=", ltm, "power=", power, "joules=", joules, "inJ=", totJin, "outJ=", totJout, "totLitres=", totLitres)
+            
+            if debug:
+                print("lth=", lth, "ltm=", ltm, "power=", power, "joules=", joules, "inJ=", totJin, "outJ=", totJout, "totLitres=", totLitres)
 
         totLitres += 1
         countable['totLitres'] = totLitres
@@ -101,7 +105,8 @@ while True :
         l += 1
 
     elif c == 0 and oc == 1:
-        #print("Falling edge")
+        if debug:
+            print("Falling edge")
         oc = 0
 
     time.sleep(0.1)
