@@ -57,9 +57,14 @@ while True :
     c = convert_state(GPIO.input(WMETER))
     t = current_milli_time()
     temperatures = mc.get('temperatures')
-    jtemp = temperatures['secondary_in']
-    rtemp = temperatures['secondary_out']
-    dtemp = rtemp - jtemp   
+    if temperatures:
+        jtemp = temperatures['secondary_in']
+        rtemp = temperatures['secondary_out']
+        dtemp = rtemp - jtemp
+    else:
+        jtemp = None
+        rtemp = None
+        dtemp = None
     #    print(t, c, jtemp, rtemp, dtemp)
 
     if c == 1 and oc == 0:
