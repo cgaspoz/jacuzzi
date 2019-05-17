@@ -22,7 +22,7 @@ while True:
         temperature = sensor.get_temperature()
         w1 += "temperature,sensor=%s,location=%s value=%.2f\n" % (sensor.id, sensors[sensor.id], temperature)
         temperatures[sensors[sensor.id]] = temperature
-
+    print(temperatures)
     mc.set('temperatures', temperatures)
     sl.post('http://localhost:8086/write?db=jacuzzi', data = w1[:-2])
     #sr.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = w1[:-2])

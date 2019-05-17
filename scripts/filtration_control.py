@@ -39,10 +39,10 @@ while True:
     filtration_stopped = GPIO.input(FILTRATION)
 
     temperatures = mc.get('temperatures')
-    if type(temperatures) == type(dict()):
+    try:
         primary = temperatures['primary']
         secondary = temperatures['secondary_in']
-    else:
+    except:
         # We have no temperatures, we define safety values (we run the filtration)
         primary = 46
         secondary = 0
