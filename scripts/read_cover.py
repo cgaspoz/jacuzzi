@@ -15,5 +15,5 @@ while True :
 	ads1115.config_single_ended()
 	time.sleep(0.1)
 	adc = ads1115.read_adc()
-	print("%d" % adc['r'])
+	print("%f" % ((float(adc['r'])/1622.0 - 4.0)/20*250))
 	time.sleep(1)
