@@ -27,6 +27,8 @@ while True:
         values += "water,sensor=filtration value=%s" % value
 
     jacuzzi = mc.get('jacuzzi')
+    #jacuzzi['lights'] = 0
+
     # {'cover': OPEN/CLOSED, 'lights': ON/OFF}
     if type(jacuzzi) == type(dict()):
         if values != "":
@@ -36,7 +38,8 @@ while True:
         else:
             jacuzzi_int = 0
 
-        values += "ambient,sensor=cover value=\"%s\"\nambient,sensor=lights value=\"%s\"\nambient,sensor=cover_int value=%s" % (jacuzzi['cover'], jacuzzi['lights'], jacuzzi_int)
+        values += "ambient,sensor=cover value=\"%s\"\nambient,sensor=lights value=\"%s\"\nambient,sensor=cover_int value=%s" % (jacuzzi['cover'], 0, jacuzzi_int)
+        #values += "ambient,sensor=cover value=\"%s\"\nambient,sensor=lights value=\"%s\"\nambient,sensor=cover_int value=%s" % (jacuzzi['cover'], jacuzzi['lights'], jacuzzi_int)
 
     sl.post('http://localhost:8086/write?db=jacuzzi', data = values)
     ##sr.post('https://jacuzzi.ga-fl.net:8086/write?db=jacuzzi&u=jacuzzi&p=likeithot', data = values)
